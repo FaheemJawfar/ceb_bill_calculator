@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ceb_bill_calculator">
+    package="com.faheemapps.ceb_bill_calculator">
    <application
-        android:label="ceb_bill_calculator"
+        android:label="CEB Bill Calculator"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
