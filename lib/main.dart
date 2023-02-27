@@ -14,7 +14,12 @@ class MyApp extends StatelessWidget {
       title: 'CEB - Bill Calculator',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        fontFamily: 'OpenSans'
+        useMaterial3: true,
+        fontFamily: 'OpenSans',
+        appBarTheme: const AppBarTheme(
+            color: Colors.indigo,
+            foregroundColor: Colors.white,
+            titleTextStyle: TextStyle(fontSize: 18))
       ),
       home: const HomePage(),
     );
