@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 
 
@@ -25,11 +26,11 @@ class _AboutUsState extends State<AboutUs> {
         child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/images/logo.png',height: 60,width: 60,),
-          const SizedBox(height: 20,),
-          const Text('This is not an official app of CEB. We have followed the calculation methods provided in www.ceb.lk website to calculate the latest charges of CEB.'),
+          Image.asset('assets/images/logo.png',height: 80,width: 80,),
+          const SizedBox(height: 30,),
+          Text('about_us_p1'.tr),
           const SizedBox(height: 10,),
-          const Text('We are expecting your feedbacks and comments. Please inform us if you find any mistakes or bugs in this app'),
+          Text('about_us_p2'.tr),
           const SizedBox(height: 40,),
           const Text('App Developed by :'),
           const Text('Faheem Apps',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),)

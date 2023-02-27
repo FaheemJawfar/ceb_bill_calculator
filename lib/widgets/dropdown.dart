@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../main.dart';
 
 
 class CommonDropDown extends StatefulWidget {
+  final List<String> dropDownList;
+  final String dropdownValue;
 
-  const CommonDropDown({Key? key})
+  const CommonDropDown({
+    required this.dropDownList,
+    required this.dropdownValue,
+    Key? key})
       : super(key: key);
 
   @override
@@ -14,24 +22,20 @@ class CommonDropDown extends StatefulWidget {
 class _CommonDropDownState extends State<CommonDropDown> {
 
 
-  @override
-  void initState() {
-    loadDefaults();
-    super.initState();
-  }
+  late String dropValue = widget.dropdownValue;
 
 
-  List<String> dropDownList = ['English', 'Sinhala', 'Tamil'];
-  late String dropdownValue;
+
+  //bool initializing = false;
 
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return  Container(
       width: 100,
       padding: const EdgeInsets.only(left: 8, right: 8),
       child: DropdownButton<String>(
-        value: dropdownValue,
+        value: dropValue,
         alignment: Alignment.centerLeft,
         icon: const Icon(Icons.arrow_drop_down_circle, color: Colors.indigo),
         // elevation: 16,
@@ -42,15 +46,36 @@ class _CommonDropDownState extends State<CommonDropDown> {
         isExpanded: true,
         onChanged: (String? value) async {
           // This is called when the user selects an item.
-          setState(() {
-            dropdownValue = value!;
-          });
-          // Obtain shared preferences.
+            dropValue = value!;
           final prefs = await SharedPreferences.getInstance();
-          await prefs.setString('language', value!);
+          await prefs.setString('language', value);
+
+          if(value == 'English'){
+            MyApp.fontFamily = 'NotoSans-en';
+            var locale = const Locale('en', 'US');
+            Get.updateLocale(locale);
+            await prefs.setString('lang_code', 'en');
+            await prefs.setString('country_code', 'US');
+          }
+          else if (value == 'සිංහල'){
+            MyApp.fontFamily = 'NotoSans-si';
+            var locale = const Locale('si', 'LK');
+            Get.updateLocale(locale);
+            await prefs.setString('lang_code', 'si');
+            await prefs.setString('country_code', 'LK');
+          }
+          else if (value == 'தமிழ்'){
+            MyApp.fontFamily = 'NotoSans-ta';
+            var locale = const Locale('ta', 'LK');
+            Get.updateLocale(locale);
+            await prefs.setString('lang_code', 'ta');
+            await prefs.setString('country_code', 'LK');
+          }
+
+          setState(() {});
         },
         items:
-        dropDownList.map<DropdownMenuItem<String>>((String value) {
+        widget.dropDownList.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(value),
@@ -60,9 +85,4 @@ class _CommonDropDownState extends State<CommonDropDown> {
     );
   }
 
-  Future<void> loadDefaults() async {
-    final prefs = await SharedPreferences.getInstance();
-    dropdownValue = prefs.getString('language') ?? 'English';
-
-  }
 }

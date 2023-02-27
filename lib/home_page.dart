@@ -1,9 +1,14 @@
 import 'package:ceb_bill_calculator/about_us.dart';
+import 'package:ceb_bill_calculator/widgets/dropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final String selectedLanguage;
+  const HomePage({
+    required this.selectedLanguage,
+    Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -16,8 +21,9 @@ class _HomePageState extends State<HomePage> {
   double energyCharge = 0.0;
   double taxAmount = 0.0;
   double totalAmount = 0.0;
-  String _selectedLanguage = 'English';
-  bool initializing = false;
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +32,7 @@ class _HomePageState extends State<HomePage> {
         title: const Text('CEB Bill Calculator - 2023'),
         actions: [
           IconButton(onPressed: () {
-            Share.share('CEB Bill Calculator - 2023 app helps to calculate your monthly CEB bill amount on your mobile. \nDownload now from Play store : https://play.google.com/store/apps/details?id=com.faheemapps.ceb_bill_calculator ');
+            Share.share('${'share_note'.tr} : https://play.google.com/store/apps/details?id=com.faheemapps.ceb_bill_calculator ');
           }, icon: const Icon(Icons.share)),
           PopupMenuButton(
               itemBuilder: (context){
@@ -34,10 +40,10 @@ class _HomePageState extends State<HomePage> {
                   PopupMenuItem<int>(
                     value: 0,
                     child: Row(
-                      children: const [
-                        Icon(Icons.info_outline, color: Colors.black,),
-                        SizedBox(width: 5,),
-                        Text("About us"),
+                      children: [
+                        const Icon(Icons.info_outline, color: Colors.black,),
+                        const SizedBox(width: 5,),
+                        Text('about_us'.tr,),
                       ],
                     ),
                   ),
@@ -87,16 +93,20 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
 
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.end,
-              //   children: const [
-              //     CommonDropDown(),
-              //   ],
-              // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  CommonDropDown(
+                    dropDownList: const ['English', 'සිංහල', 'தமிழ்'],
+                    dropdownValue: widget.selectedLanguage,
+                  ),
+                ],
+              ),
               const SizedBox(height: 20,),
-              const Text(
-                'Enter number of units',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              Text(
+                'enter_units'.tr,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                textAlign: TextAlign.center,
               ),
               const SizedBox(
                 height: 10,
@@ -128,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                   backgroundColor: MaterialStatePropertyAll<Color>(Colors.blue),
                   foregroundColor: MaterialStatePropertyAll(Colors.white)
                 ),
-                  child: const Text('Calculate',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+                  child: Text('calculate'.tr,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
               ),
               const SizedBox(
                 height: 50,
@@ -138,24 +148,24 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('ENERGY CHARGE'),
-                      Text('Rs. ${energyCharge.toStringAsFixed(2)}'),
+                      Text('energy_charge'.tr),
+                      Text('${'rs'.tr}${energyCharge.toStringAsFixed(2)}'),
                     ],
                   ),
                   const Divider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('FIXED CHARGE'),
-                      Text('Rs. ${fixedCharge.toStringAsFixed(2)}'),
+                      Text('fixed_charge'.tr),
+                      Text('${'rs'.tr}${fixedCharge.toStringAsFixed(2)}'),
                     ],
                   ),
                   const Divider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('SSCL TAX'),
-                      Text('Rs. ${taxAmount.toStringAsFixed(2)}'),
+                      Text('sscl_tax'.tr),
+                      Text('${'rs'.tr}${taxAmount.toStringAsFixed(2)}'),
                     ],
                   ),
                   const Divider(),
@@ -167,15 +177,15 @@ class _HomePageState extends State<HomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Total Amount:',
-                    style: TextStyle(
+                  Text(
+                    'total_amount'.tr,
+                    style: const TextStyle(
                         color: Colors.red,
                         // fontWeight: FontWeight.bold,
                         fontSize: 20),
                   ),
                   Text(
-                    'Rs. ${totalAmount.toStringAsFixed(2)}',
+                    '${'rs'.tr}${totalAmount.toStringAsFixed(2)}',
                     style: const TextStyle(
                         color: Colors.red,
                         fontWeight: FontWeight.bold,
@@ -194,18 +204,18 @@ class _HomePageState extends State<HomePage> {
   bool isValidNumber(dynamic input) {
 
     if(input == ''){
-      showSnackBar('Please enter number of units!');
+      showSnackBar('msg_num_of_units'.tr);
       return false;
     }
 
     num? number = num.tryParse(input.toString());
     if (number == null) {
-      showSnackBar('Please enter number of units correctly!');
+      showSnackBar('msg_enter_correctly'.tr);
       return false;
     }
 
     if (number <= 0) {
-      showSnackBar('Please enter a positive number');
+      showSnackBar('msg_enter_correctly'.tr);
       return false;
     }
     return true;

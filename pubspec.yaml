@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   share_plus: ^6.3.1
   shared_preferences: ^2.0.18
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +82,18 @@ flutter:
     - family: OpenSans
       fonts:
         - asset: assets/fonts/OpenSans.ttf
+
+    - family: NotoSans-en
+      fonts:
+        - asset: assets/fonts/NotoSans-Regular.ttf
+
+    - family: NotoSans-si
+      fonts:
+        - asset: assets/fonts/NotoSansSinhala.ttf
+
+    - family: NotoSans-ta
+      fonts:
+        - asset: assets/fonts/NotoSansTamil.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
